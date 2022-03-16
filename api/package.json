@@ -2,9 +2,10 @@
   "name": "hackathont3",
   "version": "1.0.0",
   "description": "Welcome To the Game!",
-  "main": "index.js",
+  "main": "start.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon start.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/kimbuz/HackathonT3/issues"
   },
-  "homepage": "https://github.com/kimbuz/HackathonT3#readme"
+  "homepage": "https://github.com/kimbuz/HackathonT3#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3"
+  }
 }
