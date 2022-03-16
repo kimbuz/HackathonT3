@@ -1,19 +1,18 @@
 import express from 'express'
 import loginController from '../controllers/loginController.js'
 
-loginRoute = express.Router()
+const loginRoute = express.Router()
 
-login.get('/', (req,res) =>{
-  session=req.session;
-  if(session.userid){
+loginRoute.get('/', (req,res) =>{
+  if(req.session.username){
     res.send("Welcome User <a href=\'/logout'>click to logout</a>");
   }else {
-    res.sendFile('views/index.html',{root:__dirname})
+    res.redirect('/login.html')
   }
 });
 
-login.post('/', loginController.login_login);
+loginRoute.post('/', loginController.login_login);
 
-login.get('/logout', loginController.login_logout);
+loginRoute.get('/logout', loginController.login_logout);
 
-module.export = loginRoute
+export default loginRoute

@@ -1,24 +1,26 @@
 {
-  "name": "hackathont3",
+  "name": "hackathont3-back",
   "version": "1.0.0",
   "description": "Welcome To the Game!",
+  "type": "module",
   "main": "start.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon start.js"
+    "start": "node start.js",
+    "test": "nodemon start.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kimbuz/HackathonT3.git"
+    "url": "git+https://github.com/kimbuz/HackathonT3-Back.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kimbuz/HackathonT3/issues"
+    "url": "https://github.com/kimbuz/HackathonT3-Back/issues"
   },
-  "homepage": "https://github.com/kimbuz/HackathonT3#readme",
+  "homepage": "https://github.com/kimbuz/HackathonT3-Back#readme",
   "dependencies": {
     "dotenv": "^16.0.0",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "express-session": "^1.17.2"
   }
 }

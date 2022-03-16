@@ -1,7 +1,7 @@
 import express from 'express'
 import session from 'express-session'
 
-import { loginRoute } from './routes/loginRouter'
+import loginRoute from './routes/loginRouter.js'
 
 // Build Express App
 const app = express()
@@ -9,7 +9,7 @@ const app = express()
 //--------------------------------------------
 // Middlewares Load
 app.use(express.json())
-app.use(express.static('../public'))
+app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
 
 //--------------------------------------------
@@ -29,4 +29,4 @@ app.get('/', (req,res) => {
 
 app.use( '/login', loginRoute )
 
-module.exports = app
+export default app
