@@ -3,6 +3,13 @@ import session from 'express-session'
 
 import loginRoute from './routes/loginRouter.js'
 
+import swaggerUi from 'swagger-ui-express'
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const swaggerDocument = require('../docs/swagger.json');
+
+
 // Build Express App
 const app = express()
 
@@ -28,5 +35,8 @@ app.get('/', (req,res) => {
 })
 
 app.use( '/login', loginRoute )
+
+app.use('/api-docs', swaggerUi.serve);
+app.get('/api-docs', swaggerUi.setup(swaggerDocument, { explorer: true }));
 
 export default app
