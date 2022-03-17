@@ -3,13 +3,13 @@ import contentCtrl from '../controllers/content.controllers.js'
 
 const contentRoute = Router();
 
-contentRoute.get('/contents', contentCtrl.getAll )
+contentRoute.get('/', contentCtrl.getAll )
 
-contentRoute.get('/content/:id', contentCtrl.getById )
+contentRoute.get('/:id', contentCtrl.getById )
 
-contentRoute.get('/content/genres', contentCtrl.getGenres)
+// contentRoute.get('/genres', contentCtrl.getGenres)
 
-contentRoute.get('/content/genres/:geners', contentCtrl.getByGenres)
+// contentRoute.get('/genres/:geners', contentCtrl.getByGenres)
 
 
-export default userRoute
+export default contentRoute
