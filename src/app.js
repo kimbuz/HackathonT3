@@ -63,7 +63,7 @@ app.get( base_url + '/logout', validSession, loginController.logout )
 
 //--------------------------------------------
 // Test Firebase Connect
-app.use( base_url + '/firebase', exampleFirebase )
+app.use( base_url + '/firebase', validSession, exampleFirebase )
 
 //--------------------------------------------
 // Default Route
