@@ -5,8 +5,8 @@
     "description": "API description",
     "version": "1.0.0"
   },
-  "host": "https://river-abundant-class.glitch.me",
-  "basePath": "/v1",
+  "host": "https://whimsical-adjoining-twig.glitch.me",
+  "basePath": "",
   "paths": {
     "/login": {
       "post":{
