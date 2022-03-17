@@ -4,10 +4,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 
 //--------------------------------------------
-// Load Login Controller
-import loginController from './controllers/loginController.js'
-
-import exampleFirebase from './routes/exampleFirebase.js'
+// Load User Routes
 import userRoute from './routes/user.routes.js'
 import contentRoute from './routes/contentRoute.js'
 
