@@ -1,15 +1,23 @@
 import express from 'express'
 import session from 'express-session'
+import cors from 'cors'
 
-import loginRoute from './routes/loginRouter.js'
+//--------------------------------------------
+// Load Login Controller
+import loginController from './controllers/loginController.js'
+import exampleFirebase from './routes/exampleFirebase.js'
 
+//--------------------------------------------
+// Swagger Server for API documentation
 import swaggerUi from 'swagger-ui-express'
+import YAML from 'yamljs';
+const swaggerDocument = YAML.load('./src/docs/swagger.yaml');
 
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const swaggerDocument = require('../docs/swagger.json');
+//--------------------------------------------
+// Base Url For Relative path
+const base_url = '/api/v1'
 
-
+//--------------------------------------------
 // Build Express App
 const app = express()
 
@@ -25,18 +33,42 @@ app.use(
   session({
     secret: 'L1ttl3DarkS3cr3t',
     saveUninitialized: true,
-    resave: true
+    resave: true,
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000
+    }
   })
 );
+const validSession = (req,res,next) => {
+  if(req.session.username){
+    next()
+  }else{
+    res.status(401).send()
+  }
+}
 
-// Routes
-app.get('/', (req,res) => {
-  res.send('MainPage')
+//--------------------------------------------
+// Enable Cors, Should Lock Origin
+app.use(cors())
+
+//--------------------------------------------
+// Midleware for Api Documentation
+app.use( base_url + '/docs', swaggerUi.serve);
+app.get( base_url + '/docs', swaggerUi.setup(swaggerDocument, { explorer: true }));
+
+//--------------------------------------------
+// Login Apis | No validation for Login
+app.post( base_url + '/login', loginController.login )
+app.get( base_url + '/logout', validSession, loginController.logout )
+
+//--------------------------------------------
+// Test Firebase Connect
+app.use( base_url + '/firebase', exampleFirebase )
+
+//--------------------------------------------
+// Default Route
+app.get('*', (req,res) => {
+  res.redirect( '/login.html' )
 })
-
-app.use( '/login', loginRoute )
-
-app.use('/api-docs', swaggerUi.serve);
-app.get('/api-docs', swaggerUi.setup(swaggerDocument, { explorer: true }));
 
 export default app

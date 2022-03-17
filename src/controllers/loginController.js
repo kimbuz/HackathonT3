@@ -1,25 +1,29 @@
-//const login = require('../model/loginModel.js')
+//--------------------------------------------
+// Login Controller
+import loginModel from '../model/loginModel.js'
 
 const myusername = 'admin'
 const mypassword = 'pass'
 
-const login_login = (req,res) => {
-  if(req.body.username == myusername && req.body.password == mypassword){
-    let session = req.session;
-    session.username = req.body.username;
+const login = (req,res) => {
+  if(req.body.username == myusername 
+  && req.body.password == mypassword){
+    req.session.username = req.body.username
     console.log( req.session )
-    res.send(`Hey there, welcome <a href=\'/login/logout'>click to logout</a>`);
+    res.json({
+      "sessionId": req.session
+    })
   } else{
-    res.send('Invalid username or password');
+    res.status(401).send()
   }
 }
-`12`
-const login_logout = (req,res) => {
+
+const logout = (req,res) => {
   req.session.destroy();
   res.redirect('/');
 }
 
 export default {
-  login_login,
-  login_logout
+  login,
+  logout
 }
