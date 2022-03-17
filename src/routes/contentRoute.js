@@ -5,11 +5,18 @@ const contentRoute = Router();
 
 contentRoute.get('/', contentCtrl.getAll )
 
+
+contentRoute.get('/premieres', contentCtrl.getPremieres)
+
+contentRoute.get('/movies', contentCtrl.getMovies)
+
+contentRoute.get('/series', contentCtrl.getSeries)
+
+contentRoute.get('/genres', contentCtrl.getAllgenres)
+
 contentRoute.get('/:id', contentCtrl.getById )
 
-// contentRoute.get('/genres', contentCtrl.getGenres)
-
-// contentRoute.get('/genres/:geners', contentCtrl.getByGenres)
+contentRoute.get('/genres/:genre', contentCtrl.getByGenres)
 
 
 export default contentRoute

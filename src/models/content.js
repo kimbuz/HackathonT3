@@ -16,8 +16,9 @@ const contentSchemma = new Schema({
         rank:Number,
         running_time_secs:Number,
         actors:[String],
-        triler_url:String,
-        video_url: String,
+        trailer_url:String,
+        movie_url: String,
+        type: String
     }
 });
 
