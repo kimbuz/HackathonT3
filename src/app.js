@@ -64,7 +64,7 @@ passport.use(
   new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
-}, async (req,email,password,done) => {
+}, async (email,password,done) => {
     //si existe el correo del usuario
     //console.log('BreakPoin1')
 
