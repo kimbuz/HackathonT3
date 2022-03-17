@@ -93,6 +93,13 @@ passport.deserializeUser((id,done)=>{
     })
 })
 
+const checkAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) { 
+    return next()
+  } 
+  return res.status(401).json({ message: 'Not Authenticated'})
+}
+
 //require('./config/passport')
 app.use(passport.initialize());
 app.use(passport.session())
@@ -108,8 +115,13 @@ app.get( base_url + '/docs', swaggerUi.setup(swaggerDocument, { explorer: true }
 
 //--------------------------------------------
 // Login Apis | No validation for Login
-
 app.use( base_url + '/users', userRoute )
+
+//--------------------------------------------
+// Link to Check Login OK!
+app.get('/test', checkAuthenticated, (req,res) => {
+  res.send('hitFirewall')
+})
 
 //--------------------------------------------
 // Default Route
