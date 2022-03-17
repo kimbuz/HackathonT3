@@ -1,29 +1,59 @@
 //--------------------------------------------
 // Login Controller
-import loginModel from '../model/loginModel.js'
 
-const myusername = 'admin'
-const mypassword = 'pass'
+import passport from 'passport'
+import user from '../models/users.js'
 
-const login = (req,res) => {
-  if(req.body.username == myusername 
-  && req.body.password == mypassword){
-    req.session.username = req.body.username
-    console.log( req.session )
-    res.json({
-      "sessionId": req.session
-    })
-  } else{
-    res.status(401).send()
-  }
+const UsersCtrl = {};
+
+UsersCtrl.renderSignUpForm = (req,res)=>{
+    res.render('users/signup')
 }
 
-const logout = (req,res) => {
-  req.session.destroy();
-  res.redirect('/');
+UsersCtrl.signUp = async (req,res)=>{
+    const errors =[]
+    const{name, email,password, confirm_password} = req.body;
+    if(password != confirm_password){
+        errors.push({text: 'Passwords no coinciden'})
+    }
+    if(password.length < 4){
+        errors.push({text: 'Password muy corta'})
+    }
+    if(errors.length > 0){
+        res.render('users/signup',{
+            errors,
+            name,
+            email
+        })
+    } else{
+        const emailUser =await User.findOne({email:email}).lean()
+        if(emailUser){
+            req.flash('error_msg', 'El correo ya esta en uso')
+            res.redirect('/users/signup')
+        } else {
+            const newUser = new User({name,email,password})
+            newUser.password = await newUser.encryptPassword(password)
+            await newUser.save();
+            req.flash('success_msg', 'Estas registrado')
+            res.redirect('/users/signin')
+        }
+    }
 }
 
-export default {
-  login,
-  logout
+UsersCtrl.renderSignInForm = (req,res)=>{
+    res.render('users/signin')
 }
+
+UsersCtrl.signIn = passport.authenticate('local',{
+    failureRedirect: '/users/signin',
+    successRedirect:'/notes',
+    failureFlash:true
+});
+
+UsersCtrl.logOut = (req,res)=>{
+    req.logOut();
+    req.flash('success_msg', 'Se cerro tu session');
+    res.redirect('/users/signin')
+}
+
+export default UsersCtrl
