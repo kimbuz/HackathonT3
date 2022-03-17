@@ -1,5 +1,5 @@
 import express from 'express'
-import loginModel from '../model/loginModel.js'
+import loginModel from '../models/loginModel.js'
 
 const exampleFirebase = express.Router()
 
