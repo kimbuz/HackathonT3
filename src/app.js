@@ -4,11 +4,9 @@ import cors from 'cors'
 import morgan from 'morgan'
 
 //--------------------------------------------
-// Load Login Controller
-import loginController from './controllers/loginController.js'
-
-import exampleFirebase from './routes/exampleFirebase.js'
+// Load User Routes
 import userRoute from './routes/user.routes.js'
+import contentRoute from './routes/content.route.js'
 
 //--------------------------------------------
 // Swagger Server for API documentation
@@ -28,6 +26,7 @@ const app = express()
 //--------------------------------------------
 // Middlewares Load
 app.use(morgan('dev'))
+
 app.use(express.json())
 app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
@@ -93,6 +92,13 @@ passport.deserializeUser((id,done)=>{
     })
 })
 
+const checkAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) { 
+    return next()
+  } 
+  return res.status(401).json({ message: 'Not Authenticated'})
+}
+
 //require('./config/passport')
 app.use(passport.initialize());
 app.use(passport.session())
@@ -108,13 +114,25 @@ app.get( base_url + '/docs', swaggerUi.setup(swaggerDocument, { explorer: true }
 
 //--------------------------------------------
 // Login Apis | No validation for Login
-
 app.use( base_url + '/users', userRoute )
+
+//app.use( base_url + '/content', checkAuthenticated, contentRoute )
+app.use( base_url + '/content', contentRoute )
+
+//--------------------------------------------
+// Link to Check Login OK!
+app.get('/test', checkAuthenticated, (req,res) => {
+  res.send('hitFirewall')
+})
+
+//--------------------------------------------
+// Default Route
+app.use( base_url + '/content', checkAuthenticated, contentRoute )
 
 //--------------------------------------------
 // Default Route
 app.get('*', (req,res) => {
-  res.redirect( '/login.html' )
+  res.status(404).json( { message: 'Not Available' } )
 })
 
 export default app
