@@ -116,7 +116,8 @@ app.get( base_url + '/docs', swaggerUi.setup(swaggerDocument, { explorer: true }
 // Login Apis | No validation for Login
 app.use( base_url + '/users', userRoute )
 
-app.use( base_url + '/content', checkAuthenticated, contentRoute )
+//app.use( base_url + '/content', checkAuthenticated, contentRoute )
+app.use( base_url + '/content', contentRoute )
 
 //--------------------------------------------
 // Link to Check Login OK!
