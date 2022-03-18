@@ -1,11 +1,24 @@
+//Imports
 import Content from '../models/content.js'
 
 const contentCtrl = {}
 
+//Router Functions
 contentCtrl.getAll = async (req,res)=>{
     try {
         const contentAll = await Content.find({}, { __v: 0 }).lean()
         res.json(contentAll)
+    } catch(err){
+        res.status(500).json( { message: `Server Error ${err}`} )
+    }
+}
+
+contentCtrl.getRandom = async (req,res)=>{
+    try {
+        //Pending Build Total Document Count
+        const nn = Math.floor(Math.random() * 20)
+        const contentRandom = await Content.findOne().skip(nn).lean()
+        res.json(contentRandom)
     } catch(err){
         res.status(500).json( { message: `Server Error ${err}`} )
     }
@@ -65,4 +78,5 @@ contentCtrl.getByGenres = async (req,res)=>{
     }
 }
 
+//Export
 export default contentCtrl

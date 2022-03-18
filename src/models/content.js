@@ -2,7 +2,6 @@ import pkg from 'mongoose';
 const {Schema, model} = pkg;
 
 
-
 const contentSchemma = new Schema({
     title: String,
     year: Number,
