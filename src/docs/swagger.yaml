@@ -53,6 +53,8 @@ paths:
           description: "Login ok"
         "400":
           description: "Missing Data / Email Already Taken"
+        "500":
+          description: "Something Fail... Check the error"
 
   /user/logout:
     get:
@@ -100,7 +102,7 @@ paths:
       - "content"
       summary: "Get list of Content premieres Json"
       description: ""
-      operationId: "content"
+      operationId: "contentpremieres"
       consumes:
       - "application/json"
       produces:
@@ -120,7 +122,7 @@ paths:
       - "content"
       summary: "Get list of Content movies Json"
       description: ""
-      operationId: "content"
+      operationId: "contentmovies"
       consumes:
       - "application/json"
       produces:
@@ -140,7 +142,7 @@ paths:
       - "content"
       summary: "Get list of Content series Json"
       description: ""
-      operationId: "content"
+      operationId: "contentseries"
       consumes:
       - "application/json"
       produces:
@@ -160,7 +162,7 @@ paths:
       - "content"
       summary: "Get list of genres Json"
       description: ""
-      operationId: "content"
+      operationId: "contentgenres"
       consumes:
       - "application/json"
       produces:
@@ -180,7 +182,7 @@ paths:
       - "content"
       summary: "Get Specific Content info"
       description: ""
-      operationId: "content"
+      operationId: "content:id"
       consumes:
       - "application/json"
       produces:
@@ -200,7 +202,7 @@ paths:
       - "content"
       summary: "Get Specific Content for Genre info"
       description: ""
-      operationId: "content"
+      operationId: "contentgenres:genre"
       consumes:
       - "application/json"
       produces:
