@@ -22,14 +22,16 @@ const base_url = '/api/v1'
 // Build Express App
 const app = express()
 
-
 //--------------------------------------------
 // Middlewares Load
 app.use(morgan('dev'))
 
 app.use(express.json())
-app.use(express.static('public'))
 app.use(express.urlencoded({ extended: true }))
+
+//--------------------------------------------
+// Disable Public, Only For Testing
+//app.use(express.static('public'))
 
 //--------------------------------------------
 // Session Handler
@@ -43,6 +45,7 @@ app.use(
     }
   })
 );
+
 const validSession = (req,res,next) => {
   if(req.session.username){
     next()
@@ -118,12 +121,6 @@ app.use( base_url + '/users', userRoute )
 
 //app.use( base_url + '/content', checkAuthenticated, contentRoute )
 app.use( base_url + '/content', contentRoute )
-
-//--------------------------------------------
-// Link to Check Login OK!
-app.get('/test', checkAuthenticated, (req,res) => {
-  res.send('hitFirewall')
-})
 
 //--------------------------------------------
 // Default Route

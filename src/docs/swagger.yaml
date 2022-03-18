@@ -1,25 +1,88 @@
 swagger: "2.0"
 info:
-  description: "Telecom Hackaton | Build Your App 48hrs Game!"
-  version: "1.0.0"
-  title: "HackatonT3"
+  description: "Telecom Hackathon | Build Your App 48hrs Game!\n Build a MiniFlow App Backend"
+  version: "0.0.1"
+  title: "HackathonT3 | UltraNanoFlow"
   contact:
     email: "kimbuz@teco.com.ar"
-host: "whimsical-adjoining-twig.glitch.me"
+
+host: "bkultrananoflow.herokuapp.com"
 basePath: "/api/v1"
-tags:
-- name: "Login"
-  description: "Everything about Login"
-schemes:
-- "https"
+
 paths:
-  /Login:
+  /user/login:
     post:
       tags:
-      - "Login"
-      summary: "validate account and get sessionid"
+      - "user"
+      summary: "Validate account and return Cookies"
       description: ""
-      operationId: "addPet"
+      operationId: "login"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for Session validation"
+        required: true
+      responses:
+        "200":
+          description: "Login ok"
+        "401":
+          description: "Authorized"
+        
+  /user/signup:
+    post:
+      tags:
+      - "user"
+      summary: "Create new account on server"
+      description: ""
+      operationId: "signup"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for User Creation"
+        required: false
+      responses:
+        "200":
+          description: "Login ok"
+        "400":
+          description: "Missing Data / Email Already Taken"
+        "500":
+          description: "Something Fail... Check the error"
+
+  /user/logout:
+    get:
+      tags:
+      - "user"
+      summary: "Drop Session Cookies"
+      description: ""
+      operationId: "logout"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for Session Drop"
+        required: false
+      responses:
+        "200":
+          description: "Login out"
+
+  /content:
+    get:
+      tags:
+      - "content"
+      summary: "Get list of Content Json"
+      description: ""
+      operationId: "content"
       consumes:
       - "application/json"
       produces:
@@ -27,149 +90,180 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Pet object that needs to be added to the store"
-        required: true
-        schema:
-          $ref: "#/definitions/Pet"
+        description: "Api for Content List All"
+        required: false
       responses:
-        "405":
-          description: "Invalid input"
-      security:
-      - petstore_auth:
-        - "write:pets"
-        - "read:pets"
+        "200":
+          description: "Json Output"
 
-securityDefinitions:
-  petstore_auth:
-    type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
-    flow: "implicit"
-    scopes:
-      write:pets: "modify pets in your account"
-      read:pets: "read your pets"
-  api_key:
-    type: "apiKey"
-    name: "api_key"
-    in: "header"
-definitions:
-  Order:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      petId:
-        type: "integer"
-        format: "int64"
-      quantity:
-        type: "integer"
-        format: "int32"
-      shipDate:
-        type: "string"
-        format: "date-time"
-      status:
-        type: "string"
-        description: "Order Status"
-        enum:
-        - "placed"
-        - "approved"
-        - "delivered"
-      complete:
-        type: "boolean"
-        default: false
-    xml:
-      name: "Order"
-  Category:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-    xml:
-      name: "Category"
-  User:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      username:
-        type: "string"
-      firstName:
-        type: "string"
-      lastName:
-        type: "string"
-      email:
-        type: "string"
-      password:
-        type: "string"
-      phone:
-        type: "string"
-      userStatus:
-        type: "integer"
-        format: "int32"
-        description: "User Status"
-    xml:
-      name: "User"
-  Tag:
-    type: "object"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      name:
-        type: "string"
-    xml:
-      name: "Tag"
-  Pet:
-    type: "object"
-    required:
-    - "name"
-    - "photoUrls"
-    properties:
-      id:
-        type: "integer"
-        format: "int64"
-      category:
-        $ref: "#/definitions/Category"
-      name:
-        type: "string"
-        example: "doggie"
-      photoUrls:
-        type: "array"
-        xml:
-          name: "photoUrl"
-          wrapped: true
-        items:
-          type: "string"
+  /content/premieres:
+    get:
       tags:
-        type: "array"
-        xml:
-          name: "tag"
-          wrapped: true
-        items:
-          $ref: "#/definitions/Tag"
-      status:
-        type: "string"
-        description: "pet status in the store"
-        enum:
-        - "available"
-        - "pending"
-        - "sold"
-    xml:
-      name: "Pet"
-  ApiResponse:
+      - "content"
+      summary: "Get list of Content premieres Json"
+      description: ""
+      operationId: "contentpremieres"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for Content premieres List All"
+        required: false
+      responses:
+        "200":
+          description: "Json Output"
+
+  /content/movies:
+    get:
+      tags:
+      - "content"
+      summary: "Get list of Content movies Json"
+      description: ""
+      operationId: "contentmovies"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for Content movies List All"
+        required: false
+      responses:
+        "200":
+          description: "Json Output"
+
+  /content/series:
+    get:
+      tags:
+      - "content"
+      summary: "Get list of Content series Json"
+      description: ""
+      operationId: "contentseries"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for Content series List All"
+        required: false
+      responses:
+        "200":
+          description: "Json Output"
+
+  /content/genres:
+    get:
+      tags:
+      - "content"
+      summary: "Get list of genres Json"
+      description: ""
+      operationId: "contentgenres"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for genres List All"
+        required: false
+      responses:
+        "200":
+          description: "Json Output"
+
+  /content/:id:
+    get:
+      tags:
+      - "content"
+      summary: "Get Specific Content info"
+      description: ""
+      operationId: "content:id"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for Content Id info"
+        required: false
+      responses:
+        "200":
+          description: "Json Output"
+
+  /content/genres/:genre:
+    get:
+      tags:
+      - "content"
+      summary: "Get Specific Content for Genre info"
+      description: ""
+      operationId: "contentgenres:genre"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for Content for Genre info"
+        required: false
+      responses:
+        "200":
+          description: "Json Output"
+
+definitions:
+  Content:
     type: "object"
     properties:
-      code:
+      _id:
         type: "integer"
-        format: "int32"
-      type:
+        format: "int64"
+      title:
         type: "string"
-      message:
-        type: "string"
+        format: "string"
+      year:
+        type: "integer"
+        format: "int64"
+      info: 
+        type: "object"
+        properties:
+          directors: 
+            type: string
+            example: ["str1", "str2", "str3"]
+          release_date: 
+            type: string
+            format: Date
+          rating:
+            type: "integer"
+            format: "int64"
+          genres: 
+            type: string
+            example: ["str1", "str2", "str3"]
+          image_url:
+            type: string
+          plot:
+            type: string
+          rank:
+            type: "integer"
+            format: "int64"
+          running_time_secs:
+            type: "integer"
+            format: "int64"
+          actors:
+            type: string
+            example: ["str1", "str2", "str3"]
+          trailer_url: 
+            type: string
+          movie_url:
+            type: string
+          type:
+            type: string
+
 externalDocs:
   description: "Find out more about Swagger"
   url: "http://swagger.io"
