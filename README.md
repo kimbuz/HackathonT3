@@ -36,4 +36,4 @@ http://localhost:3000/api/v1/docs
 - Gustavo Mazzino https://github.com/GMazzino
 - Mariela Insaurralde https://github.com/Minsaurralde88
 - Tomas Battou https://github.com/tbattou
-- Matias Parquez
+- Martin Paquez https://github.com/MartinPaquez
