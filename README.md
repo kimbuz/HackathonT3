@@ -1,9 +1,39 @@
-# HackathonT3
+# HackathonT3 Backend
 Repository for Hackathon Team3. Welcome To the Game!
 
-## Para Correr:
+# Description:
+
+UltraNanoFlow Backend is design to support App frontend with Content and user administration.
+
+This backend is an REST-API env. Some of the features used are:
+- Swagger Documentation
+- Login Passport
+- Mongo DataBase
+- Lots of Copy&Paste
+
+## Where To Start:
+    git clone https://github.com/kimbuz/HackathonT3-Back.git
+    cd HackathonT3-Back
+    npm install
+
+## Set Env:
+    MONGODB_HOST = 
+    MONGODB_DATABASE = 
+    MONGODB_USER = 
+    MONGODB_PASS = 
+
+## Run It:
     npm start
 
-## Para Correr con Nodemon
+## Run NodeMon Test:
     npm test
-......
+
+## UseFull Api Documentation:
+http://localhost:3000/api/v1/docs
+
+#### Team Members:
+- Leandro Botali https://github.com/leandrobotali
+- Gustavo Mazzino https://github.com/GMazzino
+- Mariela Insaurralde https://github.com/Minsaurralde88
+- Tomas Battou https://github.com/tbattou
+- Matias Parquez
