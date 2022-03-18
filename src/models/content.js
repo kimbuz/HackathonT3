@@ -18,6 +18,7 @@ const contentSchemma = new Schema({
         actors:[String],
         triler_url:String,
         video_url: String,
+        type: String,
     }
 });
 

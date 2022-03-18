@@ -6,7 +6,7 @@ import morgan from 'morgan'
 //--------------------------------------------
 // Load User Routes
 import userRoute from './routes/user.routes.js'
-import contentRoute from './routes/contentRoute.js'
+import contentRoute from './routes/content.route.js'
 
 //--------------------------------------------
 // Swagger Server for API documentation
