@@ -25,11 +25,23 @@ This backend is an REST-API env. Some of the features used are:
 ## Run It:
     npm start
 
-## Run NodeMon Test:
+## Run NodeMoon Test:
     npm test
 
 ## UseFull Api Documentation:
 http://localhost:3000/api/v1/docs
+
+## Some Screnshots
+Heroku
+![Heroku](https://ultrananoflow.herokuapp.com/images/heroku.png)
+
+Mongo
+![Mongo](https://ultrananoflow.herokuapp.com/images/mongo.png)
+
+Swagger
+![Swagger](https://ultrananoflow.herokuapp.com/images/back_swagger.png)
+
+
 
 #### Team Members:
 - Leandro Botali https://github.com/leandrobotali
