@@ -1,12 +1,12 @@
+//Imports
 import Router from 'express'
 import usersCtrl from '../controllers/users.controllers.js'
 
 const userRoute = Router();
 
-// 
+//Rutes
 userRoute.post('/signup', usersCtrl.signUp )
 
-// 
 userRoute.post('/login', usersCtrl.login, 
   (req,res)=> { 
     res.status(200).json({ 
@@ -18,4 +18,5 @@ userRoute.post('/login', usersCtrl.login,
 
 userRoute.get('/logout',usersCtrl.logOut )
 
+//export
 export default userRoute

@@ -1,18 +1,20 @@
+//Imports
 import passport from 'passport'
 import User from '../models/users.js'
 
 const UsersCtrl = {};
 
+//Router Functions
 UsersCtrl.signUp = async (req,res)=>{
     const errors =[]
     const{name, email,password, confirm_password} = req.body;
 
     if(password != confirm_password){
-        errors.push({text: 'Passwords no coinciden'})
+        errors.push({text: 'Passwords not match'})
     }
 
     if(password.length < 4){
-      errors.push({text: 'Password muy corta'})
+      errors.push({text: 'Short Password'})
     }
 
     if(errors.length > 0){
@@ -36,8 +38,10 @@ UsersCtrl.signUp = async (req,res)=>{
     }
 }
 
+//Login autentication
 UsersCtrl.login = passport.authenticate('local')
 
+//LogOut
 UsersCtrl.logOut = (req,res)=>{
     req.logOut();
     res.status(200).json({"message": "logout"})

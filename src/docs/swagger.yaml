@@ -176,13 +176,14 @@ paths:
         "200":
           description: "Json Output"
 
-  /content/:id:
+
+  /content/random:
     get:
       tags:
       - "content"
-      summary: "Get Specific Content info"
+      summary: "Get Random Content info"
       description: ""
-      operationId: "content:id"
+      operationId: "contentrandom"
       consumes:
       - "application/json"
       produces:
@@ -190,11 +191,12 @@ paths:
       parameters:
       - in: "body"
         name: "body"
-        description: "Api for Content Id info"
+        description: "Api for random Content Id info"
         required: false
       responses:
         "200":
           description: "Json Output"
+
 
   /content/genres/:genre:
     get:
@@ -216,6 +218,26 @@ paths:
         "200":
           description: "Json Output"
 
+  /content/:id:
+    get:
+      tags:
+      - "content"
+      summary: "Get Specific Content info"
+      description: ""
+      operationId: "content:id"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Api for Content Id info"
+        required: false
+      responses:
+        "200":
+          description: "Json Output"
+          
 definitions:
   Content:
     type: "object"
