@@ -1,25 +1,27 @@
+// Load Passport Config
 import passport from 'passport'
 import passport_local from 'passport-local'
+import User from '../models/users.js'
+
 const LocalStrategy = passport_local.Strategy
 
-const User = require('../models/user')
-
-passport.use(new LocalStrategy({
+passport.use(
+  new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password'
 }, async (email,password,done) => {
-    //si existe el correo del usuario
-    const user = await User.findOne({email})
+
+    const user = await User.findOne({ email })
     if (!user){
         return done(null, false, {message: 'no existe el usuario'})
     } else {
-        //validar la contraseña
         const match = await user.matchPassword(password)
-        if (match){
-            return done(null, user);
-        } else {
-            return done(null, false,{message: 'Contraseña incrrecta'})
+
+        if (!match){
+          return done(null, false,{message: 'Contraseña incrrecta'})
         }
+        
+        return done(null, user);
     }
 }));
 
@@ -32,3 +34,5 @@ passport.deserializeUser((id,done)=>{
         done(err,user)
     })
 })
+
+export default passport

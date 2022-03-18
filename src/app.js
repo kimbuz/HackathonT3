@@ -2,6 +2,7 @@ import express from 'express'
 import session from 'express-session'
 import cors from 'cors'
 import morgan from 'morgan'
+import passport from './config/passport.js'
 
 //--------------------------------------------
 // Load User Routes
@@ -46,65 +47,19 @@ app.use(
   })
 );
 
-const validSession = (req,res,next) => {
-  if(req.session.username){
-    next()
-  }else{
-    res.status(401).send()
-  }
-}
+//--------------------------------------------
+//Passport and session initialization
+app.use(passport.initialize());
+app.use(passport.session())
 
 //--------------------------------------------
-// Load Passport Config
-import passport from 'passport'
-import passport_local from 'passport-local'
-import User from './models/users.js'
-
-const LocalStrategy = passport_local.Strategy
-
-passport.use(
-  new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-}, async (email,password,done) => {
-    //si existe el correo del usuario
-    //console.log('BreakPoin1')
-
-    const user = await User.findOne({ email })
-    if (!user){
-        return done(null, false, {message: 'no existe el usuario'})
-    } else {
-        console.log(user)
-        const match = await user.matchPassword(password)
-
-        if (!match){
-          return done(null, false,{message: 'Contraseña incrrecta'})
-        }
-        
-        return done(null, user);
-    }
-}));
-
-passport.serializeUser((user, done) => {
-    done(null,user.id);
-});
-
-passport.deserializeUser((id,done)=>{
-    User.findById(id, (err,user)=>{
-        done(err,user)
-    })
-})
-
+// Helper function for autentification check
 const checkAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) { 
     return next()
   } 
   return res.status(401).json({ message: 'Not Authenticated'})
 }
-
-//require('./config/passport')
-app.use(passport.initialize());
-app.use(passport.session())
 
 //--------------------------------------------
 // Enable Cors, Should Lock Origin
@@ -119,12 +74,10 @@ app.get( base_url + '/docs', swaggerUi.setup(swaggerDocument, { explorer: true }
 // Login Apis | No validation for Login
 app.use( base_url + '/users', userRoute )
 
+//--------------------------------------------
+// Content api witch validation
 //app.use( base_url + '/content', checkAuthenticated, contentRoute )
 app.use( base_url + '/content', contentRoute )
-
-//--------------------------------------------
-// Default Route
-app.use( base_url + '/content', checkAuthenticated, contentRoute )
 
 //--------------------------------------------
 // Default Route

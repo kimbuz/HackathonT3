@@ -1,23 +1,13 @@
 import 'dotenv/config'
 import app from './src/app.js'
-import mongoose from 'mongoose'
+//import mongoose from 'mongoose'
+import mongoose from './src/config/database.js'
 
 console.log(`
 ===============================================================================
 Welcome to Hackaton Backend
 ===============================================================================
 `)
-
-const { MONGODB_USER, MONGODB_PASS, MONGODB_HOST, MONGODB_DATABASE } = process.env;
-const MONGODB_URI = `mongodb+srv://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}/${MONGODB_DATABASE}`
-
-mongoose.connect(MONGODB_URI)
-    .then(db => console.log('database is connected'))
-    .catch(err => {
-        console.error('Server missing Database Config Mongo Env.')
-        //console.error(err)
-        process.exit(1)
-    });
 
 const PORT = process.env.PORT || 8080
 
