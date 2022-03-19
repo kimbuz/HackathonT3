@@ -49,3 +49,7 @@ Swagger
 - Mariela Insaurralde https://github.com/Minsaurralde88
 - Tomas Battou https://github.com/tbattou
 - Martin Paquez https://github.com/MartinPaquez
+
+#### Mentors
+- Analia Rossi
+- Matias Cprbalan
